@@ -13,7 +13,7 @@
   "types": "dist/leaflet.extra-markers.d.ts",
   "scripts": {
     "start": "grunt",
-    "build": "grunt build"
+    "build": "grunt build --force"
   },
   "peerDependencies": {
     "leaflet": ">= 0.5 < 2"

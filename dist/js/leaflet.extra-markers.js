@@ -42,7 +42,7 @@
         createIcon: function() {
             var div = document.createElement("div"), options = this.options;
             if (options.icon) {
-                div.innerHTML = this._createInner();
+                this._createInner().then(res => div.innerHTML = res);
             }
             if (options.innerHTML) {
                 div.innerHTML = options.innerHTML;
@@ -83,7 +83,7 @@
             };
             return svgMap[shape];
         },
-        _createInner: function() {
+        _createInner: async function() {
             var iconStyle = "", iconNumber = "", iconClass = "", result = "", options = this.options;
             if (options.iconColor) {
                 iconStyle = "color: " + options.iconColor + ";";
@@ -110,7 +110,21 @@
             if (options.svg) {
                 result += this._createSvg(options.shape, this._getColorHex(options.markerColor));
             }
-            result += '<i ' + iconNumber + 'style="' + iconStyle + '" class="' + iconClass + '"></i>';
+            if (options.icon.length && options.icon.includes('ion')) { // ionicons
+              const splitted = options.icon.split('-');
+              const url = 'svg/' + splitted[1] + '.svg';
+
+              const rsp = await fetch(url);
+              if (rsp.ok) {
+                const svgContent = await rsp.text();
+                // Add icon size and color
+                const addedSvgContent = svgContent.replace('<svg', '<svg width="18" height="30" fill="#ffffff"');
+                return result + addedSvgContent;
+              }
+            } else if (options.icon.length) {
+                iconClass += options.icon + " ";
+                result += '<i ' + iconNumber + 'style="' + iconStyle + '" class="' + iconClass + '"></i>';
+            }
             return result;
         },
         _setIconStyles: function(img, name) {
