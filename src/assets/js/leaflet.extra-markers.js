@@ -108,7 +108,7 @@ ExtraMarkers.Icon = L.ExtraMarkers.Icon = L.Icon.extend({
           }
         } else if (options.icon.length) {
             iconClass += options.icon + " ";
-            result += '<i ' + iconNumber + 'style="' + iconStyle + '" class="' + iconClass + '"></i>';
+            result += '<i ' + iconNumber + 'style="' + iconStyle + '" class="' + iconClass + '</i>';
         }
         return result;
     },
