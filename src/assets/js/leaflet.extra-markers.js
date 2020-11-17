@@ -95,7 +95,7 @@ ExtraMarkers.Icon = L.ExtraMarkers.Icon = L.Icon.extend({
         if (options.svg) {
             result += this._createSvg(options.shape, this._getColorHex(options.markerColor));
         }
-        if (options.icon.length && options.icon.includes('ion')) { // ionicons
+        if (options.icon.length && options.icon.includes('ion-')) { // To find ionicons
           const splitted = options.icon.split('-');
           const url = 'svg/' + splitted[1] + '.svg';
 
